@@ -38,3 +38,4 @@ cd my-app (change it to app directory),
 
 npm start
 
+The page paths do not move anywhere yet, but the first page is done.
