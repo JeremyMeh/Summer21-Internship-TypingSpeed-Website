@@ -1,0 +1,62 @@
+.Solo{
+    padding-top: 20px;
+    padding-left: 25%;
+    padding-right:25%;
+}
+
+#test{
+    background-color: whitesmoke;
+    border-color: #303030;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 5px;
+}
+
+#timer{
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#api{
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 20px;
+}
+
+#border{
+    border-color: goldenrod;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#paragraph{
+    padding: 10px;
+    text-align: initial;
+}
+
+#userInput{
+    padding-left: 6%;
+    padding-right: 5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#startLink{
+    color: black;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: yellow;
+}
+
+#typingArea{
+    justify-content: left;
+    text-align: left;
+}
+
