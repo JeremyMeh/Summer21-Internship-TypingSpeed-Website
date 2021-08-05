@@ -39,3 +39,7 @@ cd my-app (change it to app directory),
 npm start
 
 The page paths do not move anywhere yet, but the first page is done.
+
+Node.js modules to install:
+
+/Summer21-Internship-TypingSpeed-Website/api - npm install axios

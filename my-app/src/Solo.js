@@ -1,7 +1,10 @@
 import React, { Component, useState } from 'react'
 import "./Solo.css"
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import axios from 'axios';
 import TextTest from './TestText';
+import { getPara } from './services/UserService';
+
 
 class Solo extends Component{
 
@@ -11,11 +14,30 @@ class Solo extends Component{
             minutes: 2,
             seconds: 30,
             showBtn: false,
-            script: 'This is where the paragraph for the test will go! ^_^',
+            script: "",
             timePast: 0,
         };
         this.attempt = this.attempt.bind(this);
+        this.retrievePara = this.retrievePara.bind(this);
     }
+
+    componentDidMount() {
+        this.retrievePara();
+    }
+
+    retrievePara() {
+        getPara()
+            .then(paragraph => {
+                console.log(paragraph)
+                this.setState({script: paragraph})
+            });
+    }
+
+    gettingPara() {
+        console.log(this.state.script);
+    }
+
+    
 
     render() {
    
@@ -40,6 +62,7 @@ class Solo extends Component{
                         <div id="border">
                             <div id="paragraph">
                                 <p>{this.state.script}</p>
+                                <p>{this.state.extraPracPara}</p>
                             </div>
                         </div>
                     </div>
