@@ -1,25 +1,33 @@
-import React, { Component, useState } from 'react'
+import React, { Component} from 'react'
 import "./Solo.css"
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import TextTest from './TestText';
+import Results from './Results';
 
 class Solo extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            minutes: 2,
+            minutes: 1,
             seconds: 30,
             showBtn: false,
             script: 'This is where the paragraph for the test will go! ^_^',
             timePast: 0,
+            results: false,
         };
         this.attempt = this.attempt.bind(this);
+        this.handleCallback = this.handleCallback.bind(this);
+    }
+
+    handleCallback(childData) {
+        this.setState({results: childData})
+        console.log(childData);
     }
 
     render() {
    
-        const { minutes, seconds, showBtn, script } = this.state;
+        const { minutes, seconds, showBtn, script, results } = this.state;
 
         return(
             <div className="Solo">
@@ -39,18 +47,18 @@ class Solo extends Component{
                     <div id="api">
                         <div id="border">
                             <div id="paragraph">
-                                <p>{this.state.script}</p>
+                                <p>{script}</p>
                             </div>
                         </div>
                     </div>
                     <div id="userInput">
-                        <BrowserRouter>
+                        {/* <BrowserRouter>
                             <Switch>
-                                <Route exact path="/Solo">
-                                    {showBtn ? <TextTest dataFromParent={this.state.script} /> : <Button clickHandler={this.attempt} />}
-                                </Route>
+                                <Route exact path="/Solo"> */}
+                                    {results ? <p> Nothing to see just yet. Time past: {this.state.timePast} </p> : (showBtn ? <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> : <Button clickHandler={this.attempt} />)}
+                                {/* </Route>
                             </Switch>
-                        </BrowserRouter>
+                        </BrowserRouter> */}
                     </div>
                 </div>
             </div>
@@ -77,7 +85,7 @@ class Solo extends Component{
             }
             this.setState({timePast: this.state.timePast + 1});
         }, 1000);
-        this.setState({ showButton: !this.state.showButton });
+        // this.setState({ showButton: !this.state.showButton });
         this.setState({showBtn: true});
     }
 
