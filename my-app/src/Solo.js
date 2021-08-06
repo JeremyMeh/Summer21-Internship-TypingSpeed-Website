@@ -1,7 +1,9 @@
 import React, { Component} from 'react'
 import "./Solo.css"
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import axios from 'axios';
 import TextTest from './TestText';
+import { getPara } from './services/UserService';
 import Results from './Results';
 
 class Solo extends Component{
@@ -18,6 +20,23 @@ class Solo extends Component{
         };
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
+        this.retrievePara = this.retrievePara.bind(this);
+    }
+    
+    componentDidMount() {
+        this.retrievePara();
+    }
+
+    retrievePara() {
+        getPara()
+            .then(paragraph => {
+                console.log(paragraph)
+                this.setState({script: paragraph})
+            });
+    }
+
+    gettingPara() {
+        console.log(this.state.script);
     }
 
     handleCallback(childData) {
