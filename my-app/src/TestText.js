@@ -39,7 +39,7 @@ class TextTest extends Component {
             this.setState({
                 showResults: true,
             });
-            // console.log(this.state.showResults);
+            console.log(this.state.showResults);
         }
     }
 

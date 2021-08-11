@@ -87,6 +87,9 @@ class Solo extends Component{
     attempt() {
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state
+            if (this.state.results === true) {
+                clearInterval(this.myInterval)
+            }
             if (seconds > 0) {
               this.setState(({ seconds }) => ({
                 seconds: seconds - 1
@@ -102,7 +105,10 @@ class Solo extends Component{
                     }))
                 }
             }
-            this.setState({timePast: this.state.timePast + 1});
+            if (this.state.results === false) {
+                this.setState({timePast: this.state.timePast + 1});
+            }
+            
         }, 1000);
         // this.setState({ showButton: !this.state.showButton });
         this.setState({showBtn: true});
