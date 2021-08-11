@@ -21,7 +21,6 @@ class Solo extends Component{
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
         this.retrievePara = this.retrievePara.bind(this);
-        this.scriptConverter = this.scriptConverter.bind(this);
     }
 
     componentDidMount() {
