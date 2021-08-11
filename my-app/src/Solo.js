@@ -80,7 +80,6 @@ class Solo extends Component{
                                     <Button clickHandler={this.attempt} />
                                 )
                         }
-                        <Results charCountFromParent={characterCount} timePastFromParent={timePast} />
                     </div>
                 </div>
             </div>
