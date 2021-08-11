@@ -22,7 +22,7 @@ class Solo extends Component{
         this.handleCallback = this.handleCallback.bind(this);
         this.retrievePara = this.retrievePara.bind(this);
     }
-    
+
     componentDidMount() {
         this.retrievePara();
     }
@@ -40,14 +40,16 @@ class Solo extends Component{
     }
 
     handleCallback(childData) {
-        this.setState({results: childData})
-        console.log(childData);
+        this.setState({
+            results: childData[0],
+            characterCount: childData[1],
+        })
     }
+
 
     render() {
    
-        const { minutes, seconds, showBtn, script, results } = this.state;
-
+        const { minutes, seconds, showBtn, script, results, characterCount, timePast } = this.state;
         return(
             <div className="Solo">
                 <div id="title">
@@ -71,13 +73,13 @@ class Solo extends Component{
                         </div>
                     </div>
                     <div id="userInput">
-                        {/* <BrowserRouter>
-                            <Switch>
-                                <Route exact path="/Solo"> */}
-                                    {results ? <p> Nothing to see just yet. Time past: {this.state.timePast} </p> : (showBtn ? <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> : <Button clickHandler={this.attempt} />)}
-                                {/* </Route>
-                            </Switch>
-                        </BrowserRouter> */}
+                        {results ?
+                            <Results charCountFromParent={characterCount} timePastFromParent={timePast} /> :
+                                (showBtn ?
+                                    <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> :
+                                    <Button clickHandler={this.attempt} />
+                                )
+                        }
                     </div>
                 </div>
             </div>
@@ -86,10 +88,12 @@ class Solo extends Component{
 
     attempt() {
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
-            if (this.state.results === true) {
-                clearInterval(this.myInterval)
+            const { seconds, minutes } = this.state;
+
+            if(this.state.results === true){
+                clearInterval(this.myInterval);
             }
+
             if (seconds > 0) {
               this.setState(({ seconds }) => ({
                 seconds: seconds - 1
