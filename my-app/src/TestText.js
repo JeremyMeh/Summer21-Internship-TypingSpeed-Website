@@ -14,19 +14,20 @@ class TextTest extends Component {
             showResults: false,
         };
         this.changed = this.changed.bind(this);
+        this.firstcheck = this.firstcheck.bind(this);
         this.secondCheck = this.secondCheck.bind(this);
     }
 
-    
+
 
     render(){
         return(
                 <div id="typingArea">
                     <textarea name='inputPara' rows="10" cols="89" onChange={this.changed}></textarea>
-                    <p>{this.state.inputPara}</p>
+                    <p>{this.state.scriptLen}</p>
                 </div>
         )
-    }
+    }  
 
     changed(event) {
         this.setState({
@@ -34,16 +35,22 @@ class TextTest extends Component {
             counter: event.target.value.length,
         });
         this.secondCheck();
-        // console.log(this.state.counter);
+        console.log(this.state.counter);
+        this.firstcheck();
+        
+    }
+
+    firstcheck(){
         if(this.state.counter+1 === this.state.scriptLen-1){
             this.setState({
                 showResults: true,
             });
-            // console.log(this.state.showResults);
+            console.log(this.state.showResults);
         }
     }
 
     secondCheck(){
+        this.firstcheck();
         if(this.state.showResults === true){
             this.onTrigger();
         }
@@ -51,7 +58,8 @@ class TextTest extends Component {
 
     onTrigger() {
         var showRes = this.state.showResults;
-        this.props.parentCallback(showRes);
+        var count = this.state.counter;
+        this.props.parentCallback([showRes, count]);
     }
  
 }
