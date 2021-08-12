@@ -12,6 +12,9 @@ class TextTest extends Component {
             counter: 0,
             scriptLen: script.length,
             showResults: false,
+
+
+
         };
         this.changed = this.changed.bind(this);
         this.firstcheck = this.firstcheck.bind(this);
@@ -62,6 +65,22 @@ class TextTest extends Component {
         this.props.parentCallback([showRes, count]);
     }
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
 
 export default TextTest;
