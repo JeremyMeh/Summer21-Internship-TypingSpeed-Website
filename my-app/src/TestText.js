@@ -12,12 +12,16 @@ class TextTest extends Component {
             counter: 0,
             scriptLen: script.length,
             showResults: false,
+            errorCounter: 0,
+            correctCounter: 0,
+            paraArray: this.props.passParaArray,
         };
         this.changed = this.changed.bind(this);
         this.secondCheck = this.secondCheck.bind(this);
+        this.paragraphCheck =  this.paragraphCheck.bind(this);
     }
-
     
+
 
     render(){
         return(
@@ -34,26 +38,49 @@ class TextTest extends Component {
             counter: event.target.value.length,
         });
         this.secondCheck();
-        // console.log(this.state.counter);
-        if(this.state.counter+1 === this.state.scriptLen-1){
-            this.setState({
-                showResults: true,
-            });
-            // console.log(this.state.showResults);
-        }
+
+        
+        this.paragraphCheck();
     }
 
+
+
+
+
+
+
+
+
+
     secondCheck(){
-        if(this.state.showResults === true){
-            this.onTrigger();
-        }
+
+    
+    
+    
     }
 
     onTrigger() {
-        var showRes = this.state.showResults;
-        this.props.parentCallback(showRes);
+
+    
+    
     }
- 
+    
+    paragraphCheck(){
+        // console.log(this.state.inputPara[this.state.counter - 1]);
+        // console.log(this.state.paraArray[this.state.counter - 1]);
+
+        if(this.state.inputPara[this.state.counter - 1] != this.state.paraArray[this.state.counter - 1]){
+
+            this.setState({errorCounter : this.state.errorCounter + 1});
+            console.log("error found")
+            //change the color to be RED
+        }
+        else{
+            console.log("no error")
+
+            //change the color to be YELLOW
+        }
+    }
 }
 
 export default TextTest;

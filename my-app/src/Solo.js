@@ -17,10 +17,12 @@ class Solo extends Component{
             script: 'This is where the paragraph for the test will go! ^_^',
             timePast: 0,
             results: false,
+            paraArray: [],
         };
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
         this.retrievePara = this.retrievePara.bind(this);
+        this.paraConversion = this.paraConversion.bind(this);
     }
     
     componentDidMount() {
@@ -32,6 +34,8 @@ class Solo extends Component{
             .then(paragraph => {
                 console.log(paragraph)
                 this.setState({script: paragraph})
+
+                this.paraConversion();
             });
     }
 
@@ -40,8 +44,19 @@ class Solo extends Component{
     }
 
     handleCallback(childData) {
-        this.setState({results: childData})
-        console.log(childData);
+        this.setState({
+
+            
+        })
+    }
+
+    paraConversion(){
+        var scriptArray = new Array();
+    
+        for(var i = 0; i < this.state.script.length; i++){
+            scriptArray.push(this.state.script[i])
+        }
+        this.setState({paraArray:scriptArray});
     }
 
     render() {
@@ -71,13 +86,13 @@ class Solo extends Component{
                         </div>
                     </div>
                     <div id="userInput">
-                        {/* <BrowserRouter>
-                            <Switch>
-                                <Route exact path="/Solo"> */}
-                                    {results ? <p> Nothing to see just yet. Time past: {this.state.timePast} </p> : (showBtn ? <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> : <Button clickHandler={this.attempt} />)}
-                                {/* </Route>
-                            </Switch>
-                        </BrowserRouter> */}
+                        {results ?
+                            
+                                (showBtn ?
+                                    <TextTest passParaArray={this.state.paraArray} parentCallback={this.handleCallback} dataFromParent={script} /> :
+                                    <Button clickHandler={this.attempt} />
+                                )
+                        }
                     </div>
                 </div>
             </div>
@@ -86,7 +101,12 @@ class Solo extends Component{
 
     attempt() {
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
+            const { seconds, minutes } = this.state;
+
+
+
+
+
             if (seconds > 0) {
               this.setState(({ seconds }) => ({
                 seconds: seconds - 1
@@ -102,7 +122,9 @@ class Solo extends Component{
                     }))
                 }
             }
-            this.setState({timePast: this.state.timePast + 1});
+
+            
+
         }, 1000);
         // this.setState({ showButton: !this.state.showButton });
         this.setState({showBtn: true});
