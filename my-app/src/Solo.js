@@ -24,7 +24,7 @@ class Solo extends Component{
         this.retrievePara = this.retrievePara.bind(this);
         this.paraConversion = this.paraConversion.bind(this);
     }
-    
+
     componentDidMount() {
         this.retrievePara();
     }
@@ -34,7 +34,6 @@ class Solo extends Component{
             .then(paragraph => {
                 console.log(paragraph)
                 this.setState({script: paragraph})
-
                 this.paraConversion();
             });
     }
@@ -45,8 +44,8 @@ class Solo extends Component{
 
     handleCallback(childData) {
         this.setState({
-
-            
+            results: childData[0],
+            characterCount: childData[1],
         })
     }
 
@@ -61,8 +60,8 @@ class Solo extends Component{
 
     render() {
    
-        const { minutes, seconds, showBtn, script, results } = this.state;
-
+        const { minutes, seconds, showBtn, script, results, characterCount, timePast } = this.state;
+        
         return(
             <div className="Solo">
                 <div id="title">
@@ -87,9 +86,9 @@ class Solo extends Component{
                     </div>
                     <div id="userInput">
                         {results ?
-                            
+                            <Results charCountFromParent={characterCount} timePastFromParent={timePast} /> :
                                 (showBtn ?
-                                    <TextTest passParaArray={this.state.paraArray} parentCallback={this.handleCallback} dataFromParent={script} /> :
+                                    <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> :
                                     <Button clickHandler={this.attempt} />
                                 )
                         }
@@ -103,9 +102,9 @@ class Solo extends Component{
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state;
 
-
-
-
+            if(this.state.results === true){
+                clearInterval(this.myInterval);
+            }
 
             if (seconds > 0) {
               this.setState(({ seconds }) => ({
@@ -122,9 +121,9 @@ class Solo extends Component{
                     }))
                 }
             }
-
-            
-
+            if(this.state.results === false){
+                this.setState({timePast: this.state.timePast + 1});
+            }
         }, 1000);
         // this.setState({ showButton: !this.state.showButton });
         this.setState({showBtn: true});

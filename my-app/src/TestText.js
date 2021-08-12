@@ -17,20 +17,20 @@ class TextTest extends Component {
             paraArray: this.props.passParaArray,
         };
         this.changed = this.changed.bind(this);
+        this.firstcheck = this.firstcheck.bind(this);
         this.secondCheck = this.secondCheck.bind(this);
-        this.paragraphCheck =  this.paragraphCheck.bind(this);
+        this.paragraphCheck = this.paragraphCheck.bind(this);
     }
     
-
 
     render(){
         return(
                 <div id="typingArea">
                     <textarea name='inputPara' rows="10" cols="89" onChange={this.changed}></textarea>
-                    <p>{this.state.inputPara}</p>
+                    <p>{this.state.scriptLen}</p>
                 </div>
         )
-    }
+    }  
 
     changed(event) {
         this.setState({
@@ -38,36 +38,35 @@ class TextTest extends Component {
             counter: event.target.value.length,
         });
         this.secondCheck();
-
-        
+        console.log(this.state.counter);
+        this.firstcheck();
         this.paragraphCheck();
     }
 
-
-
-
-
-
-
-
-
+    firstcheck(){
+        if(this.state.counter+1 === this.state.scriptLen-1){
+            this.setState({
+                showResults: true,
+            });
+            console.log(this.state.showResults);
+        }
+    }
 
     secondCheck(){
-
-    
-    
-    
+        this.firstcheck();
+        if(this.state.showResults === true){
+            this.onTrigger();
+        }
     }
 
     onTrigger() {
-
-    
-    
+        var showRes = this.state.showResults;
+        var count = this.state.counter;
+        this.props.parentCallback([showRes, count]);
     }
-    
+ 
     paragraphCheck(){
-        // console.log(this.state.inputPara[this.state.counter - 1]);
-        // console.log(this.state.paraArray[this.state.counter - 1]);
+
 
         if(this.state.inputPara[this.state.counter - 1] != this.state.paraArray[this.state.counter - 1]){
 
@@ -81,6 +80,7 @@ class TextTest extends Component {
             //change the color to be YELLOW
         }
     }
+  
 }
 
 export default TextTest;
