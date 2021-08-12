@@ -12,15 +12,15 @@ class TextTest extends Component {
             counter: 0,
             scriptLen: script.length,
             showResults: false,
-
-
-
+            errorCounter: 0,
+            correctCounter: 0,
+            paraArray: this.props.passParaArray,
         };
         this.changed = this.changed.bind(this);
         this.firstcheck = this.firstcheck.bind(this);
         this.secondCheck = this.secondCheck.bind(this);
+        this.paragraphCheck = this.paragraphCheck.bind(this)
     }
-
 
 
     render(){
@@ -40,7 +40,7 @@ class TextTest extends Component {
         this.secondCheck();
         console.log(this.state.counter);
         this.firstcheck();
-        
+        this.paragraphCheck();
     }
 
     firstcheck(){
@@ -65,22 +65,22 @@ class TextTest extends Component {
         this.props.parentCallback([showRes, count]);
     }
  
+    paragraphCheck() {
+
+        if(this.state,inputPara[this.state.counter - 1] != this.state.paraArray[this.state.counter - 1]){
+
+            this.setState({errorCounter : this.state.errorCounter + 1});
+            console.log("error found")
+            //change the color to RED
+        }
+        else{
+            console.log("no error");
+
+            //change the color to YELLOW
+        }
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 }
 
 export default TextTest;
