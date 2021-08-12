@@ -51,8 +51,8 @@ class Solo extends Component{
 
     paraConversion(){
         var scriptArray = new Array();
-    
-        for(var i = 0; i < this.state.script.length; i++){
+
+        for(var i = 0; i < this.state.script.length;i++){
             scriptArray.push(this.state.script[i])
         }
         this.setState({paraArray:scriptArray});
@@ -61,7 +61,7 @@ class Solo extends Component{
     render() {
    
         const { minutes, seconds, showBtn, script, results, characterCount, timePast } = this.state;
-        
+
         return(
             <div className="Solo">
                 <div id="title">
