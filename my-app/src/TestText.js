@@ -67,7 +67,7 @@ class TextTest extends Component {
  
     paragraphCheck() {
 
-        if(this.state,inputPara[this.state.counter - 1] != this.state.paraArray[this.state.counter - 1]){
+        if(this.state.inputPara[this.state.counter - 1] != this.state.paraArray[this.state.counter - 1]){
 
             this.setState({errorCounter : this.state.errorCounter + 1});
             console.log("error found")
