@@ -17,10 +17,12 @@ class Solo extends Component{
             script: 'This is where the paragraph for the test will go! ^_^',
             timePast: 0,
             results: false,
+            paraArray: [],
         };
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
         this.retrievePara = this.retrievePara.bind(this);
+        this.paraConversion = this.paraConversion.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +34,7 @@ class Solo extends Component{
             .then(paragraph => {
                 console.log(paragraph)
                 this.setState({script: paragraph})
+                this.paraConversion();
             });
     }
 
@@ -46,10 +49,19 @@ class Solo extends Component{
         })
     }
 
+    paraConversion(){
+        var scriptArray = new Array();
+
+        for(var i = 0; i < this.state.script.length;i++){
+            scriptArray.push(this.state.script[i])
+        }
+        this.setState({paraArray:scriptArray});
+    }
 
     render() {
    
         const { minutes, seconds, showBtn, script, results, characterCount, timePast } = this.state;
+
         return(
             <div className="Solo">
                 <div id="title">
