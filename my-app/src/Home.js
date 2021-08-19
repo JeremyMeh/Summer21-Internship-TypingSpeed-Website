@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import "./Home.css"
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Header from './Header';
 import Solo from './Solo';
 import Nav from './Nav'
@@ -24,16 +24,17 @@ function Home() {
                             you may challenge opponents in an online match or challenge your friends to a local game.
                         </h4>
                         <div id="Options">
-                            <form method="GET" action="/Solo">
+                            <Link to="/Solo">
                                 <button id="solo">
                                     Solo
                                 </button>
-                            </form>
-                            <form method="GET" action="/Multiplayer">
+                            </Link>
+                            {/* <p/> */}
+                            {/* <Link to="/Multiplayer">
                                 <button id="multi">
                                     Multiplayer
                                 </button>
-                            </form>
+                            </Link> */}
                         </div>
                     </Route>
                 </Switch>
