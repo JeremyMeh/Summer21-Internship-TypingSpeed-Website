@@ -5,6 +5,7 @@ import axios from 'axios';
 import TextTest from './TestText';
 import { getPara } from './services/UserService';
 import Results from './Results';
+// import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class Solo extends Component{
 
@@ -12,12 +13,14 @@ class Solo extends Component{
         super(props);
         this.state = {
             minutes: 1,
-            seconds: 30,
+            seconds: 0,
             showBtn: false,
             script: 'This is where the paragraph for the test will go! ^_^',
             timePast: 0,
             results: false,
             paraArray: [],
+            accuracy: 0,
+            errors: 0, 
         };
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
@@ -46,6 +49,8 @@ class Solo extends Component{
         this.setState({
             results: childData[0],
             characterCount: childData[1],
+            accuracy: childData[2],
+            errors: childData[3],
         })
     }
 
@@ -63,7 +68,7 @@ class Solo extends Component{
         const { minutes, seconds, showBtn, script, results, characterCount, timePast } = this.state;
 
         return(
-            <div className="Solo">
+            <div className="Solo" oncopy="return false" oncut="return false" onpaste="return false">
                 <div id="title">
                     <h3>Practice Test</h3>
                 </div>
@@ -78,17 +83,22 @@ class Solo extends Component{
                     </div>
 
                     <div id="api">
-                        <div id="border">
-                            <div id="paragraph">
-                                <p>{script}</p>
-                            </div>
-                        </div>
+                        {
+                            results ? 
+                                <span></span>
+                            :
+                                <div id="border">
+                                    <div id="paragraph">
+                                        <p>{script}</p>
+                                    </div>
+                                </div>
+                        }
                     </div>
                     <div id="userInput">
                         {results ?
-                            <Results charCountFromParent={characterCount} timePastFromParent={timePast} /> :
+                            <Results charCountFromParent={characterCount} timePastFromParent={timePast > 60 ? timePast - 1 : timePast} totalChar={script.length} accuracy={this.state.accuracy} errors={this.state.errors}/> :
                                 (showBtn ?
-                                    <TextTest parentCallback={this.handleCallback} dataFromParent={script} /> :
+                                    <TextTest parentCallback={this.handleCallback} dataFromParent={script} passParaArray={this.state.paraArray} time={[minutes, seconds]} /> :
                                     <Button clickHandler={this.attempt} />
                                 )
                         }
@@ -138,7 +148,7 @@ class Solo extends Component{
 class Button extends Component{
     render() {
         return (
-            <button id="startLink" onClick={this.props.clickHandler}> Start </button>
+            <button class="Buttons" onClick={this.props.clickHandler}> Start </button>
         )
     }
 }

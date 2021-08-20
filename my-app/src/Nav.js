@@ -7,8 +7,9 @@ const Nav = () => {
     return (
         <nav>
             <Link exact to="/Solo">Solo</Link>
-            <Link to="/Multiplayer">Multiplayer</Link>
-            <Link to="/Profile">Profile</Link>
+            <Link exact to="/">Home</Link>
+            {/* <Link to="/Multiplayer">Multiplayer</Link>
+            <Link to="/Profile">Profile</Link> */}
         </nav>
     )
 }

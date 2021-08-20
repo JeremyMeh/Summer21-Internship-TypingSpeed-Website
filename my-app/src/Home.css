@@ -53,11 +53,7 @@ a:link{
     padding-top: 20px;
 }
 
-#Options form{
-    padding: 15px;
-}
-
-#Options form button{
+#Options button{
     border-radius: 8px;
     font-size: 25px;
 }
