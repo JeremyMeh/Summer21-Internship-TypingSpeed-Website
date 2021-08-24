@@ -18,6 +18,7 @@ class TextTest extends Component {
             seconds: this.props.time[1],
             finalErrorCount: 0,
             accuracy: 0,
+            errorArray: [ [ "" , "" ] ],
         };
         this.changed = this.changed.bind(this);
         this.firstcheck = this.firstcheck.bind(this);
@@ -34,7 +35,6 @@ class TextTest extends Component {
                 </div>
         )
     }
-    //contextMenuHidden={true} // idk what this does but it was in render
 
 
     componentDidMount() {
@@ -95,18 +95,26 @@ class TextTest extends Component {
     }
 
     userErrorsCheck(){
+        var holderArray = new Array();
 
         for(var i = 0; i < this.state.inputPara.length; i++){
             if(this.state.inputPara[i] !== this.state.paraArray[i]){
-                this.setState({finalErrorCount : this.state.finalErrorCount + 1});
+                this.setState({
+                    finalErrorCount : this.state.finalErrorCount + 1,
+                });
+                holderArray.push([this.state.inputPara[i], i.toString()])
             }
         }
-
-        var accu = ((this.state.inputPara.length - this.state.errorCounter)/this.state.inputPara.length) * 100;
-        console.log(accu);
         this.setState({
-            accuracy: accu,
+            errorArray: holderArray,
         })
+        console.log("ErrorArray: ", this.state.errorArray);
+        if(this.state.inputPara.length > 0){
+            this.state.accuracy = parseFloat(((this.state.inputPara.length - this.state.errorCounter)/this.state.inputPara.length) * 100).toFixed(2);
+        } else {
+            this.state.accuracy = 0;
+        }
+
         console.log(this.state.accuracy);
     }
 
@@ -116,7 +124,10 @@ class TextTest extends Component {
         var accuracy = this.state.accuracy;
         console.log(accuracy);
         var actualErrors = this.state.finalErrorCount;
-        this.props.parentCallback([showRes, count, accuracy, actualErrors]);
+        var totalErrors = this.state.errorCounter;
+        var typedPara = this.state.inputPara;
+        var errorArray = this.state.errorArray;
+        this.props.parentCallback([showRes, count, accuracy, actualErrors, totalErrors, typedPara, errorArray]);
     }
  
     paragraphCheck() {
