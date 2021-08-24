@@ -20,7 +20,10 @@ class Solo extends Component{
             results: false,
             paraArray: [],
             accuracy: 0,
-            errors: 0, 
+            errors: 0,
+            typedPara: "",
+            totalErrors: 0,
+            errorArray: [],
         };
         this.attempt = this.attempt.bind(this);
         this.handleCallback = this.handleCallback.bind(this);
@@ -51,6 +54,9 @@ class Solo extends Component{
             characterCount: childData[1],
             accuracy: childData[2],
             errors: childData[3],
+            totalErrors: childData[4],
+            typedPara: childData[5],
+            errorArray: childData[6],
         })
     }
 
@@ -70,17 +76,26 @@ class Solo extends Component{
         return(
             <div className="Solo" oncopy="return false" oncut="return false" onpaste="return false">
                 <div id="title">
-                    <h3>Practice Test</h3>
+                    {
+                        results ? <h3>Results</h3> : 
+                        <div>
+                            <h3>Practice Test</h3>
+                            <h5>Please hit space when you have finished typing the paragraph.</h5>
+                        </div>
+                    }
                 </div>
                 <div id="test">
-                    <div id="timer">
-                        <div id="tim">
-                            { minutes === 0 && seconds === 0
-                                ? <h4>Time's Up!</h4>
-                                : <h4>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
-                            }
-                        </div>
-                    </div>
+                    {
+                        results ? <span></span> : 
+                            <div id="timer">
+                                <div id="tim">
+                                    { minutes === 0 && seconds === 0
+                                        ? <h4>Time's Up!</h4>
+                                        : <h4>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
+                                    }
+                                </div>
+                            </div>
+                    }
 
                     <div id="api">
                         {
@@ -89,14 +104,14 @@ class Solo extends Component{
                             :
                                 <div id="border">
                                     <div id="paragraph">
-                                        <p>{script}</p>
+                                        <p>{this.state.paraArray}</p>
                                     </div>
                                 </div>
                         }
                     </div>
                     <div id="userInput">
                         {results ?
-                            <Results charCountFromParent={characterCount} timePastFromParent={timePast > 60 ? timePast - 1 : timePast} totalChar={script.length} accuracy={this.state.accuracy} errors={this.state.errors}/> :
+                            <Results charCountFromParent={characterCount} timePastFromParent={timePast > 60 ? timePast - 1 : timePast} totalChar={script.length} accuracy={this.state.accuracy} fixedErrors={this.state.errors} totalErrors={this.state.totalErrors} script={this.state.script} typedPara={this.state.typedPara} errorArray={this.state.errorArray}/> :
                                 (showBtn ?
                                     <TextTest parentCallback={this.handleCallback} dataFromParent={script} passParaArray={this.state.paraArray} time={[minutes, seconds]} /> :
                                     <Button clickHandler={this.attempt} />
