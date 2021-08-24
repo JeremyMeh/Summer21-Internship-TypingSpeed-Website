@@ -24,3 +24,5 @@ yarn-error.log*
 
 *.cmd
 *.ps1
+
+/node_modules
